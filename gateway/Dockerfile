@@ -1,4 +1,4 @@
-FROM golang:1.10.4 as build
+FROM golang:1.11 as builder
 ARG GIT_COMMIT_SHA
 ARG GIT_COMMIT_MESSAGE
 ARG VERSION='dev'
@@ -51,7 +51,7 @@ EXPOSE 8080
 ENV http_proxy      ""
 ENV https_proxy     ""
 
-COPY --from=build /go/src/github.com/openfaas/faas/gateway/gateway    .
+COPY --from=builder /go/src/github.com/openfaas/faas/gateway/gateway    .
 COPY assets     assets
 
 RUN chown -R app:app ./
